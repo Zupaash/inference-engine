@@ -49,37 +49,14 @@ The engine contains native, hand-written C++ implementations for the core founda
 To generate the weight data, configure the build layout, compile, and run a complete forward inference pass, execute the following sequences from your project root:
 
 ### 1. Extract the Weights
-Set up your python environment and run the shredder script to dump raw parameter matrices:
+Set up your Python environment and run the shredder script to dump raw parameter matrices:
 ```bash
 pip install -r tools/requirements.txt
 python tools/generate_mnist_onnx.py
+python tools/extract_weights.py
 ```
-
-### 3. Execute Inference
-Run the compiled runtime binary directly from your terminal console:
-# Windows
-.\build\Debug\inference_engine.exe
-
-# Mac / Linux
-./build/inference_engine
-```
-
----
-
-## 🗺️ Engineering Roadmap & Optimization Targets
-
-- [x] **Phase 1: Project Setup** -> Establish layout blueprints, CMake configuration, and Git protections.
-- [x] **Phase 2: Data Extraction** -> Build PyTorch serialization tools and strip weights to raw `.bin` data.
-- [x] **Phase 3: C++ Loader** -> Write memory streams using `reinterpret_cast` to move bytes to RAM.
-- [x] **Phase 4: Math Pipeline** -> Implement custom nested-loop mathematical layers (`conv2d`, `relu`, `pool`, `matmul`).
-- [x] **Phase 5: Forward Pass Integration** -> Wire up a sequential execution pass and evaluate inputs.
-- [ ] **Phase 6: Real Image Parsing** -> Integrate low-profile image decoders (`stb_image`) to test real pixel arrays.
-- [ ] **Phase 7: Hardware Optimization** -> Speed up matrix math using **Cache-friendly layout flattening**, **SIMD (AVX2/NEON) vector intrinsics**, and multi-core **OpenMP multithreading**.
-```bash
 
 ### 2. Compile the Engine
-cmake -B build
-cmake --build build
 Leverage CMake to configure and compile the optimized C++ executable:
 ```bash
 cmake -B build
@@ -102,3 +79,4 @@ Run the compiled runtime binary directly from your terminal console:
 
 - **Real Image Parsing**: Integrate low-profile image decoders (`stb_image`) to test real pixel arrays.
 - **Hardware Optimization**: Speed up matrix math using **Cache-friendly layout flattening**, **SIMD (AVX2/NEON) vector intrinsics**, and multi-core **OpenMP multithreading**.
+
